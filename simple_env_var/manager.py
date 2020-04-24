@@ -23,8 +23,8 @@ from logging import getLogger
 from inspect import isclass
 
 
-_root_logger = getLogger('simple-env-var')
-_root_logger.propagate = False
+logger = getLogger('simple-env-var')
+logger.propagate = False
 
 
 class Singleton(type):
@@ -40,7 +40,6 @@ class Configuration(metaclass=Singleton):
     def __init__(self, load: bool = True):
         if not isinstance(load, bool):
             raise TypeError
-        self.__logger = _root_logger.getChild(self.__class__.__name__)
         self.__initiated = False
         if load:
             self.__loadConfig()
@@ -49,26 +48,27 @@ class Configuration(metaclass=Singleton):
         if not self.__initiated:
             sections = {item.__name__: item() for item in self.__class__.__dict__.values() if isclass(item) and issubclass(item, Section)}
             self.__dict__ = {**self.__dict__, **sections}
-            self.__logger.debug("Checking environment variables ...")
+            logger.debug("Checking environment variables for '{}' ...".format(self.__class__.__name__))
             for section in sections:
                 for key in sections[section].__dict__:
                     env_data = self.__getEnvData(section, key)
                     if env_data:
-                        self.__logger.info(
-                            "Setting value for key '{}' in section '{}' from environment variable".format(key, section)
-                        )
+                        logger.debug("Found value for " + "'{}_{}_{}'".format(self.__class__.__name__, section, key).upper())
                         sections[section].__dict__[key] = env_data
                     else:
                         if sections[section].__dict__[key] or type(sections[section].__dict__[key]) is bool:
-                            self.__logger.info("Using default value for key '{}' in section '{}'".format(key, section))
+                            logger.warning(
+                                "Using default value for " + "'{}_{}_{}'".format(self.__class__.__name__, section, key).upper()
+                            )
                         else:
-                            self.__logger.warning("Key '{}' in section '{}' not set".format(key, section))
+                            logger.error(
+                                "Missing value for " + "'{}_{}_{}'".format(self.__class__.__name__, section, key).upper()
+                            )
             self.__initiated = True
 
     def __getEnvData(self, section: str, key: str):
         env_data = getenv("{}_{}_{}".format(self.__class__.__name__, section, key).upper())
         if env_data:
-            self.__logger.debug("Found environment variable for key '{}' in section '{}'".format(key, section))
             return self.__loadValue(env_data)
 
     def __loadValue(self, value: str):
