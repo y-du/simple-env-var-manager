@@ -15,8 +15,8 @@
 """
 
 __version__ = '1.0.0'
-__title__ = 'env-conf-manager'
-__description__ = 'Define configuration structures, read environemnt variables and access your variables via an object tree that plays well with IDE code completion.'
+__title__ = 'simple-env-var-manager'
+__description__ = 'Define configuration structures, read configuration from environemnt and access your variables via an object tree that plays well with IDE code completion.'
 __url__ = 'https://github.com/y-du/env-var-manager'
 __author__ = 'Yann Dumont'
 __license__ = 'Apache License 2.0'
