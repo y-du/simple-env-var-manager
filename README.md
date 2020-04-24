@@ -58,7 +58,7 @@ Install the `simple-env-var-manager` package via pip by issuing the following co
 
 Upgrade to new version: 
 
-- `pip install --upgrade git+https://github.com/y-du/simple-conf-manager.git@X.X.X`
+- `pip install --upgrade git+https://github.com/y-du/simple-env-var-manager.git@X.X.X`
 
 Uninstall: 
 
@@ -118,7 +118,7 @@ Possible types are: `str`, `int`, `float`, `complex`, `bool`, `NoneType`. Other 
 
 If your project uses the python `logging` facility you can combine the output produced by `simple-env-var-manager` with your log output.
 
-Retrieve the "simple-conf" logger via:
+Retrieve the "simple-env-var" logger via:
 
     logger = logging.getLogger("simple-env-var")
 
