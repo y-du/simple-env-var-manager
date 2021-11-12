@@ -52,7 +52,7 @@ class Configuration(metaclass=Singleton):
             for section in sections:
                 for key in sections[section].__dict__:
                     env_data = self.__getEnvData(section, key)
-                    if env_data or isinstance(env_data, bool):
+                    if env_data is not None:
                         logger.debug("Found value for " + "'{}_{}_{}'".format(self.__class__.__name__, section, key).upper())
                         sections[section].__dict__[key] = env_data
                     else:
