@@ -29,7 +29,7 @@ def read_metadata(file):
     return metadata
 
 
-metadata = read_metadata('simple_env_var/__init__.py')
+metadata = read_metadata('sevm/__init__.py')
 
 setuptools.setup(
     name=metadata.get('__title__'),
