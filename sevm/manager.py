@@ -14,7 +14,7 @@
    limitations under the License.
 """
 
-__all__ = ("Configuration", )
+__all__ = ("Config",)
 
 import os
 
@@ -54,7 +54,7 @@ class SetAttributeError(Exception):
         super().__init__(f"'{arg}' is immutable")
 
 
-class Configuration:
+class Config:
     def __init__(self, upper_keys: bool = True):
         environment = os.environ
         for key in self.__class__.__dict__:
@@ -73,6 +73,6 @@ class Configuration:
     @staticmethod
     def __is_config(cls):
         try:
-            return issubclass(cls, Configuration)
+            return issubclass(cls, Config)
         except TypeError:
             return False
