@@ -31,7 +31,6 @@ def read_metadata(file):
 
 metadata = read_metadata('simple_env_var/__init__.py')
 
-
 setuptools.setup(
     name=metadata.get('__title__'),
     version=metadata.get('__version__'),
@@ -42,12 +41,9 @@ setuptools.setup(
     copyright=metadata.get('__copyright__'),
     packages=setuptools.find_packages(),
     python_requires='>=3.5.3',
-    classifiers=(
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
+    classifiers=[
         'Intended Audience :: Developers',
         'Operating System :: Unix',
         'Natural Language :: English',
-    ),
+    ]
 )

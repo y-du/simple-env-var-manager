@@ -14,13 +14,13 @@
    limitations under the License.
 """
 
-__version__ = '1.0.2'
-__title__ = 'simple-env-var-manager'
-__description__ = 'Define configuration structures, read configuration from environemnt and access your variables via an object tree that plays well with IDE code completion.'
-__url__ = 'https://github.com/y-du/env-var-manager'
-__author__ = 'Yann Dumont'
-__license__ = 'Apache License 2.0'
-__copyright__ = 'Copyright (c) 2020 Yann Dumont'
+__version__ = "2.0.0"
+__title__ = "simple-env-var-manager"
+__description__ = "Define configurations, read configurations from environemnt and access your variables via an object tree that plays well with IDE code completion."
+__url__ = "https://github.com/y-du/env-var-manager"
+__author__ = "Yann Dumont"
+__license__ = "Apache License 2.0"
+__copyright__ = "Copyright (c) 2019 Yann Dumont"
 
 
 from .manager import *
