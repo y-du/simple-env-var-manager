@@ -39,7 +39,7 @@ setuptools.setup(
     license=metadata.get('__license__'),
     url=metadata.get('__url__'),
     copyright=metadata.get('__copyright__'),
-    packages=setuptools.find_packages(),
+    packages=setuptools.find_packages(exclude=("tests", )),
     python_requires='>=3.5.3',
     classifiers=[
         'Intended Audience :: Developers',
