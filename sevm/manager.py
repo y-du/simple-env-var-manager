@@ -14,7 +14,7 @@
    limitations under the License.
 """
 
-__all__ = ("Config",)
+__all__ = ("Config", "NoValueError")
 
 import os
 
@@ -66,7 +66,7 @@ class NoValueError(ConfigError):
 
 
 class Config:
-    def __init__(self, prefix: str = None, sub_prefix: bool = True, upper_keys: bool = True):
+    def __init__(self, prefix: str = None, sub_prefix: bool = True, upper_keys: bool = True, require_value: bool = False):
         environment = os.environ
         if prefix and not prefix.endswith("_"):
             prefix = prefix + "_"
@@ -83,6 +83,8 @@ class Config:
                 elif format_key(key=key, prefix=prefix, upper=upper_keys) in environment:
                     self.__dict__[key] = detect_type(environment[format_key(key=key, prefix=prefix, upper=upper_keys)])
                 else:
+                    if value is None and require_value:
+                        raise NoValueError(key)
                     self.__dict__[key] = value
 
     def __setattr__(self, key, value):
