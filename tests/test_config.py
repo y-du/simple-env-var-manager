@@ -85,22 +85,42 @@ class TestConfig(unittest.TestCase):
 
     def test_section_default_value(self):
         config = Config()
-        self.assertEqual(config.Section.var_d, test_str)
+        self.assertEqual(config.section.var_d, test_str)
 
     def test_section_override_value_str(self):
-        os.environ["VAR_C"] = test_str
+        os.environ["SECTION_VAR_C"] = test_str
         config = Config()
-        self.assertEqual(config.Section.var_c, test_str)
+        self.assertEqual(config.section.var_c, test_str)
 
     def test_lower_case_keys(self):
         os.environ["var_a"] = test_str
         config = Config(upper_keys=False)
         self.assertEqual(config.var_a, test_str)
 
-    def test__section_lower_case_keys(self):
-        os.environ["var_c"] = test_str
+    def test_section_lower_case_keys(self):
+        os.environ["section_var_c"] = test_str
         config = Config(upper_keys=False)
-        self.assertEqual(config.Section.var_c, test_str)
+        self.assertEqual(config.section.var_c, test_str)
+
+    def test_prefix_override_value_str(self):
+        os.environ["TEST_VAR_A"] = test_str
+        config = Config(prefix="test")
+        self.assertEqual(config.var_a, test_str)
+
+    def test_prefix_section_override_value_str(self):
+        os.environ["TEST_SECTION_VAR_C"] = test_str
+        config = Config(prefix="test")
+        self.assertEqual(config.section.var_c, test_str)
+
+    def test_prefix_no_sub_prefix_override_value_str(self):
+        os.environ["TEST_VAR_C"] = test_str
+        config = Config(prefix="test", sub_prefix=False)
+        self.assertEqual(config.section.var_c, test_str)
+
+    def test_no_sub_prefix_override_value_str(self):
+        os.environ["VAR_C"] = test_str
+        config = Config(sub_prefix=False)
+        self.assertEqual(config.section.var_c, test_str)
 
 
 if __name__ == '__main__':
