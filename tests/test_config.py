@@ -122,6 +122,12 @@ class TestConfig(unittest.TestCase):
         config = Config(sub_prefix=False)
         self.assertEqual(config.section.var_c, test_str)
 
+    def test_require_value(self):
+        try:
+            Config(require_value=True)
+        except Exception as ex:
+            self.assertIsInstance(ex, sevm.NoValueError)
+
 
 if __name__ == '__main__':
     unittest.main()
