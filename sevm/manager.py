@@ -51,9 +51,18 @@ def detect_type(value: str):
         return value
 
 
-class SetAttributeError(Exception):
+class ConfigError(Exception):
+    pass
+
+
+class SetAttributeError(ConfigError):
     def __init__(self, arg):
         super().__init__(f"'{arg}' is immutable")
+
+
+class NoValueError(ConfigError):
+    def __init__(self, arg):
+        super().__init__(f"no value for '{arg}'")
 
 
 class Config:
