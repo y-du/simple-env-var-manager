@@ -19,9 +19,11 @@ __all__ = ("Config",)
 import os
 
 
-def format_key(key: str, upper: bool) -> str:
+def format_key(key: str, upper: bool, prefix=None) -> str:
+    if prefix:
+        key = prefix + key
     if upper:
-        return key.upper()
+        key = key.upper()
     return key
 
 
@@ -55,15 +57,22 @@ class SetAttributeError(Exception):
 
 
 class Config:
-    def __init__(self, upper_keys: bool = True):
+    def __init__(self, prefix: str = None, sub_prefix: bool = True, upper_keys: bool = True):
         environment = os.environ
+        if prefix and not prefix.endswith("_"):
+            prefix = prefix + "_"
         for key in self.__class__.__dict__:
             if not key.startswith("_"):
                 value = self.__class__.__dict__[key]
                 if self.__is_config(value):
-                    self.__dict__[key] = value(upper_keys=upper_keys)
-                elif format_key(key, upper_keys) in environment:
-                    self.__dict__[key] = detect_type(environment[format_key(key, upper_keys)])
+                    _prefix = None
+                    if prefix and sub_prefix:
+                        _prefix = f"{prefix}{format_key(key=key, upper=upper_keys)}_"
+                    elif sub_prefix:
+                        _prefix = f"{format_key(key=key, upper=upper_keys)}_"
+                    self.__dict__[key] = value(prefix=_prefix or prefix, sub_prefix=sub_prefix, upper_keys=upper_keys)
+                elif format_key(key=key, prefix=prefix, upper=upper_keys) in environment:
+                    self.__dict__[key] = detect_type(environment[format_key(key=key, prefix=prefix, upper=upper_keys)])
                 else:
                     self.__dict__[key] = value
 
