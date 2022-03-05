@@ -14,10 +14,8 @@ Define configurations, read config values from environment and access your confi
 Description
 ---
 
-With `simple-env-var-manager` the configuration is defined as a class in your code and is accessible by IDE code completion mechanisms, thus ruling out having to guess config keys during implementation.
+With `simple-env-var-manager` configurations are defined as classes and are accessible by IDE code completion mechanisms.
 Configurations are stored as object trees during runtime and values reside in attributes.
-See [Usage](#usage) for more information.
-
 
 Quickstart
 ---
