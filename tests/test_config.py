@@ -22,13 +22,15 @@ import sevm
 test_str = "test"
 
 
+class Section(sevm.Config):
+    var_c = None
+    var_d = test_str
+
+
 class Config(sevm.Config):
     var_a = None
     var_b = test_str
-
-    class Section(sevm.Config):
-        var_c = None
-        var_d = test_str
+    section = Section
 
 
 class TestConfig(unittest.TestCase):
