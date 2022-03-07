@@ -14,7 +14,7 @@
    limitations under the License.
 """
 
-__version__ = "2.2.0"
+__version__ = "2.2.1"
 __title__ = "simple-env-var-manager"
 __description__ = "Define configurations, read configurations from environemnt and access your variables via an object tree that plays well with IDE code completion."
 __url__ = "https://github.com/y-du/env-var-manager"

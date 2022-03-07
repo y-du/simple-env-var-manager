@@ -79,7 +79,12 @@ class Config:
                         _prefix = f"{prefix}{format_key(key=key, upper=upper_keys)}_"
                     elif sub_prefix:
                         _prefix = f"{format_key(key=key, upper=upper_keys)}_"
-                    self.__dict__[key] = value(prefix=_prefix or prefix, sub_prefix=sub_prefix, upper_keys=upper_keys)
+                    self.__dict__[key] = value(
+                        prefix=_prefix or prefix,
+                        sub_prefix=sub_prefix,
+                        upper_keys=upper_keys,
+                        require_value=require_value
+                    )
                 elif format_key(key=key, prefix=prefix, upper=upper_keys) in environment:
                     self.__dict__[key] = detect_type(environment[format_key(key=key, prefix=prefix, upper=upper_keys)])
                 else:
