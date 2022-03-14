@@ -95,6 +95,18 @@ class Config:
     def __setattr__(self, key, value):
         raise SetAttributeError(key)
 
+    def __str__(self):
+        return str(self.__todict__())
+
+    def __todict__(self):
+        _dict = dict()
+        for key, val in self.__dict__.items():
+            if isinstance(val, Config):
+                _dict[key] = val.__todict__()
+            else:
+                _dict[key] = val
+        return _dict
+
     @staticmethod
     def __is_config(cls):
         try:
