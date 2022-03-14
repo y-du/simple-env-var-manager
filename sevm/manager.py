@@ -73,7 +73,7 @@ class Config:
         for key in self.__class__.__dict__:
             if not key.startswith("_"):
                 value = self.__class__.__dict__[key]
-                if self.__is_config(value):
+                if self.__isconfig__(value):
                     _prefix = None
                     if prefix and sub_prefix:
                         _prefix = f"{prefix}{format_key(key=key, upper=upper_keys)}_"
@@ -108,7 +108,7 @@ class Config:
         return _dict
 
     @staticmethod
-    def __is_config(cls):
+    def __isconfig__(cls):
         try:
             return issubclass(cls, Config)
         except TypeError:
